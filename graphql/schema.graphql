@@ -9,12 +9,14 @@ type Query {
     # user(id: ID @eq): User @find(model: "App\\User")
 
     # added by Suman
-    books: [Book] @all
+    books: [Book] @middleware(checks: ["auth:api"])  @all
     book(id: ID @eq): Book @find(model: "App\\Book")
     booksByFeatured(featured: Boolean! @eq): [Book] @all
     searchBookByAuthor(authorName: String!): [Book]
     categories: [Category] @all
     category(id: ID @eq): Category @find(model: "App\\Category")
+
+    me: User @middleware(checks: ["auth:api"]) @auth
 }
 
 # added by Suman
